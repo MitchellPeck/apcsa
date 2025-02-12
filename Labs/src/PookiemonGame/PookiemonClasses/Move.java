@@ -7,21 +7,26 @@ public class Move {
     private String name;
     private double damageMultiplier;
     private double accuracy;
-    private ArrayList<Types> types;
+    private Types type;
 
     public Move(String name) {
         this.name = name;
         this.damageMultiplier = 1;
         this.accuracy = .5;
-        this.types = new ArrayList<Types>();
+    }
+
+    public Move(String name, double damageMultiplier, double accuracy, Types type) {
+        this.name = name;
+        this.damageMultiplier = damageMultiplier;
+        this.accuracy = accuracy;
+        this.type = type;
     }
 
     public Move(String name, double damageMultiplier, double accuracy, Types[] types) {
         this.name = name;
         this.damageMultiplier = damageMultiplier;
         this.accuracy = accuracy;
-        this.types = new ArrayList<Types>();
-        this.types.addAll(Arrays.asList(types));
+        this.type = types[0];
     }
 
     public String getName() {
@@ -48,19 +53,11 @@ public class Move {
         this.accuracy = accuracy;
     }
 
-    public Types[] getTypes() {
-        return (Types[]) types.toArray();
+    public Types getType() {
+        return type;
     }
 
-    public void addType(Types type) {
-        types.add(type);
-    }
-
-    public void removeType(Types type) {
-        types.remove(type);
-    }
-
-    public void removeType(int index) {
-        types.remove(index);
+    public void setType(Types type) {
+        this.type = type;
     }
 }

@@ -2,160 +2,90 @@ package PookiemonGame.PookiemonClasses;
 
 import PookiemonGame.Utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class PookiemonType extends PookiemonBase {
-    private Types type;
-    private Map<Types, Double> advantages = new HashMap<Types, Double>();
-    private ArrayList<Move> moves;
+    private Types[] types;
+    private Map<Types, Double> advantages = new HashMap<>();
+    private ArrayList<Types> immunities = new ArrayList<>();
 
     /**
-     * Creates a new PookiemonType instance with given type. Passes name to super constructor.
+     * Creates a new PookiemonType instance with given types. Passes name to super constructor.
      *
-     * @param type Type of the Pookiemon.
-     * @param name Name of the Pookiemon. Passed to super constructor.
+     * @param types Types of the Pookiemon.
+     * @param name  Name of the Pookiemon. Passed to super constructor.
      */
-    public PookiemonType(Types type, String name) {
+    public PookiemonType(Types[] types, String name) {
         super(name);
-        this.type = type;
-        this.moves = new ArrayList<Move>();
+        this.types = types;
     }
 
     /**
-     * Creates a new PookiemonType instance with given type. Passes name and health to super constructor.
+     * Creates a new PookiemonType instance with given types. Passes name and health to super constructor.
      *
-     * @param type   Type of the Pookiemon.
+     * @param types  Types of the Pookiemon.
      * @param name   Name of the Pookiemon. Passed to super constructor.
      * @param health Health of the Pookiemon. Passed to super constructor.
      */
-    public PookiemonType(Types type, String name, int health) {
+    public PookiemonType(Types[] types, String name, int health) {
         super(name, health);
-        this.type = type;
-        this.moves = new ArrayList<Move>();
+        this.types = types;
     }
 
     /**
-     * Creates a new PookiemonType instance with given type. Passes name, health, attack, and defense to super constructor.
+     * Creates a new PookiemonType instance with given types. Passes name, health, attack, and defense to super constructor.
      *
-     * @param type    Type of the Pookiemon.
+     * @param types   Types of the Pookiemon.
      * @param name    Name of the Pookiemon. Passed to super constructor.
      * @param health  Health of the Pookiemon. Passed to super constructor.
      * @param attack  Attack strength of the Pookiemon. Passed to super constructor.
      * @param defense Defense strength of the Pookiemon. Passed to super constructor.
      */
-    public PookiemonType(Types type, String name, int health, int attack, int defense) {
+    public PookiemonType(Types[] types, String name, int health, int attack, int defense) {
         super(name, health, attack, defense);
-        this.type = type;
-        this.moves = new ArrayList<Move>();
+        this.types = types;
     }
 
     /**
-     * Creates a new PookiemonType instance with given type and moves. Passes name, health, attack, and defense to super constructor.
+     * Creates a new PookiemonType instance with given types and moves. Passes name, health, attack, defense, and evolution to super constructor.
      *
-     * @param type    Type of the Pookiemon.
-     * @param moves   Moves that the Pookiemon has.
-     * @param name    Name of the Pookiemon. Passed to super constructor.
-     * @param health  Health of the Pookiemon. Passed to super constructor.
-     * @param attack  Attack strength of the Pookiemon. Passed to super constructor.
-     * @param defense Defense strength of the Pookiemon. Passed to super constructor.
-     */
-    public PookiemonType(Types type, Move[] moves, String name, int health, int attack, int defense) {
-        super(name, health, attack, defense);
-        this.type = type;
-        this.moves = new ArrayList<Move>();
-        this.moves.addAll(Arrays.asList(moves));
-    }
-
-    /**
-     * Creates a new PookiemonType instance with given type and moves. Passes name, health, attack, defense, and evolution to super constructor.
-     *
-     * @param type      Type of the Pookiemon.
-     * @param moves     Moves that the Pookiemon has.
+     * @param types     Types of the Pookiemon.
      * @param name      Name of the Pookiemon. Passed to super constructor.
      * @param health    Health of the Pookiemon. Passed to super constructor.
      * @param attack    Attack strength of the Pookiemon. Passed to super constructor.
      * @param defense   Defense strength of the Pookiemon. Passed to super constructor.
      * @param evolution Pookiemon to evolve to. Passed to super constructor.
      */
-    public PookiemonType(Types type, Move[] moves, String name, int health, int attack, int defense, Pookiemon evolution) {
+    public PookiemonType(Types[] types, String name, int health, int attack, int defense, Pookiemon evolution) {
         super(name, health, attack, defense, evolution);
-        this.type = type;
-        this.moves = new ArrayList<Move>();
-        this.moves.addAll(Arrays.asList(moves));
+        this.types = types;
     }
 
     /**
-     * Get the type of the Pookiemon.
+     * Get the types of the PookiemonType.
      *
-     * @return Type of the Pookiemon.
+     * @return Types of the PookiemonType.
      */
-    public Types getType() {
-        return type;
+    public Types[] getTypes() {
+        return types;
     }
 
     /**
-     * Set the type of the Pookiemon.
+     * Set the primary PookiemonType type.
      *
-     * @param type Type of the Pookiemon.
+     * @param type Type to set as the primary PookiemonType type.
      */
-    public void setType(Types type) {
-        this.type = type;
+    public void setPrimaryType(Types type) {
+        this.types[0] = type;
     }
 
     /**
-     * Get the moves that the PookiemonType has.
+     * Set the secondary PookiemonType type.
      *
-     * @return Moves that the PookiemonType has.
+     * @param type Type to set as the secondary PookiemonType type.
      */
-    public Move[] getMoves() {
-        return (Move[]) moves.toArray();
-    }
-
-    /**
-     * Get the moves that the PookiemonType has, as the original ArrayList.
-     *
-     * @return Moves that the PookiemonType has, as the original ArrayList.
-     */
-    public ArrayList<Move> getMovesAsArrayList() {
-        return moves;
-    }
-
-    /**
-     * Add a move for the PookiemonType.
-     *
-     * @param move Move to add for the PookiemonType.
-     */
-    public void addMove(Move move) {
-        boolean valid = false;
-        int count = 0;
-        while (!valid && count < move.getTypes().length) {
-            if (move.getTypes()[count] == type) valid = true;
-            else if (move.getTypes()[count] == Types.NORMAL) valid = true;
-            else count++;
-        }
-        if (!valid) return;
-        moves.add(move);
-    }
-
-    /**
-     * Remove a move from the PookiemonType.
-     *
-     * @param move Move to remove for the PookiemonType.
-     */
-    public void removeMove(Move move) {
-        moves.remove(move);
-    }
-
-    /**
-     * Remove a move from the PookiemonType.
-     *
-     * @param index Index of the move to remove for the PookiemonType.
-     */
-    public void removeMove(int index) {
-        moves.remove(index);
+    public void setSecondaryType(Types type) {
+        this.types[1] = type;
     }
 
     /**
@@ -180,11 +110,30 @@ public class PookiemonType extends PookiemonBase {
     /**
      * Add a disadvantage that this PookiemonType has over other PookiemonTypes.
      *
-     * @param type         the PookiemonType that the disadvantage is under.
+     * @param type         The PookiemonType that the disadvantage is under.
      * @param disadvantage The disadvantage under the other PookiemonType.
      */
     public void setDisadvantage(Types type, double disadvantage) {
         advantages.put(type, 1 / disadvantage);
+    }
+
+    /**
+     * Add an immunity that this PookiemonType has for other PookiemonTypes.
+     *
+     * @param type The PookiemonType that the immunity is for.
+     */
+    public void setImmunity(Types type) {
+        if (immunities.contains(type)) return;
+        immunities.add(type);
+    }
+
+    /**
+     * Check if this PookiemonType is immune to the given PookiemonType.
+     * @param enemy The PookiemonType to check for an immunity against.
+     * @return Whether this PookiemonType is immune to the given PookiemonType.
+     */
+    public boolean isImmune(PookiemonType enemy) {
+        return immunities.contains(enemy.getTypes()[0]);
     }
 
     /**
@@ -194,7 +143,7 @@ public class PookiemonType extends PookiemonBase {
      * @return The advantage over the other PookiemonType.
      */
     public double advantage(PookiemonType enemy) {
-        Types enemyType = enemy.getType();
+        Types enemyType = enemy.getTypes()[0];
         double advantage = advantages.get(enemyType);
         if (advantage == 0) advantage = 1;
         return advantage;
@@ -204,6 +153,7 @@ public class PookiemonType extends PookiemonBase {
      * Attack an enemy PookiemonType passed as a parameter.
      * Calls super attack method to get damage.
      * Adjusts damage based on advantage over enemy PookiemonType, as well as chosen Move damage multiplier and accuracy.
+     * If enemy PookiemonType is immune to this PookiemonType, returned attack is 0.
      *
      * @param enemy Enemy PookiemonType to attack.
      * @param move  Move to attack enemy PookiemonType with.
@@ -212,12 +162,13 @@ public class PookiemonType extends PookiemonBase {
     public int attack(PookiemonType enemy, Move move) {
         int baseDamage = super.attack(enemy);
         double advantage = advantage(enemy);
-        int advantageDamage = (int) ((baseDamage * advantage) + 0.5);
+        if (advantage == 0) advantage = 1;
+        int advantageDamage = (int) ((baseDamage * advantage) + .5);
         double damageMultiplier = move.getDamageMultiplier();
         double accuracy = move.getAccuracy();
         double accuracyChance = Utils.Random.number();
         int damage = 0;
-        if (accuracyChance <= accuracy) {
+        if (accuracyChance <= accuracy && !enemy.isImmune(this)) {
             damage = (int) ((advantageDamage * damageMultiplier) + .5);
         }
         return damage;
@@ -229,16 +180,8 @@ public class PookiemonType extends PookiemonBase {
     @Override
     public void evolve() {
         if (getEvolution() == null) return;
-        this.type = getEvolution().getType();
+        this.types = getEvolution().getTypes();
         this.advantages = getEvolution().getAdvantages();
-        this.moves.addAll(getEvolution().getMovesAsArrayList());
-        ArrayList<Move> newList = new ArrayList<>();
-        for (Move element : moves) {
-            if (!newList.contains(element)) {
-                newList.add(element);
-            }
-        }
-        moves = newList;
         super.evolve();
     }
 
@@ -249,6 +192,6 @@ public class PookiemonType extends PookiemonBase {
      */
     @Override
     public String toString() {
-        return type + " " + super.toString();
+        return types + " " + super.toString();
     }
 }

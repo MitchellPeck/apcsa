@@ -1,5 +1,7 @@
 package PookiemonGame;
 
+import PookiemonGame.PlayerClasses.Player;
+import PookiemonGame.PlayerClasses.Players;
 import PookiemonGame.Pookiemon.PookiemonList;
 import PookiemonGame.PookiemonClasses.Pookiemon;
 
@@ -9,6 +11,7 @@ import java.util.Scanner;
 public class Battleground {
     private ArrayList<Player> players;
     private Player player;
+    private Players playersList;
     Scanner i = new Scanner(System.in);
     PookiemonList pList = new PookiemonList();
 
@@ -50,50 +53,29 @@ public class Battleground {
     public void play() {
         System.out.println("Welcome to Pookiemon!");
 
-        int response = Utils.getValidEntry("Would you like to play (1) by yourself against a computer or (2) with a friend?", 1, i, 1, 2);
+        int response = Utils.getValidEntry("Would you like to play (1) by yourself against a computer or (2-4) with a friend(s)?", 1, i, 1, 4);
         if (response == 1) {
             System.out.println("Lonely!");
-            Player player = createPlayer();
+            Player player1 = Utils.createPlayer(i);
+            players.add(player1);
+            player = player1;
+            Pookiemon[] list = Utils.randomList();
+            Player player2 = new Player("Computer", false, list, Utils.randomPookiemon(list));
+            players.add(player2);
+        } else {
+            for (int i=0; i<response; i++) {
+                System.out.println("Player " + (i+1) + ", let's create your player.");
+                Player player = Utils.createPlayer(this.i);
+                players.add(player);
+                if (i == 0) this.player = player;
+            }
         }
-    }
+        playersList = new Players(players);
 
-    public Player createPlayer() {
-        String name = Utils.getValidEntry("Please enter your name:", 255, i);
-        System.out.println("Here's a list of Pookiemon:");
-        pList.listPookiemon();
-        int count = 0;
-        Pookiemon[] list = new Pookiemon[5];
-        while (count < 5) {
-            String pookiemonName = Utils.getValidEntry("Please enter the name of a Pookiemon to add to your list.", 255, i);
-            Pookiemon pookiemon = pList.findPookiemonByName(pookiemonName);
-            if (pookiemon == null) {
-                System.out.println("Sorry, couldn't find that one. Please try again.");
-                continue;
-            }
-            list[count] = pookiemon;
-            if (count < 4) {
-                System.out.println("Great! Now let's add " + (5 - count - 1) + " more.");
-                count++;
-            } else {
-                count++;
-            }
+        System.out.println("Let's play!");
+
+        while (playersList.winningPlayer() == null) {
+            System.out.println(player.getName() + ", it's your turn!");
         }
-        Pookiemon selected;
-        while (true) {
-            String selectedName = Utils.getValidEntry("Please enter the name of the Pookiemon that you'd like to start battle with.", 255, i);
-            selected = pList.findPookiemonByName(selectedName);
-            boolean valid = false;
-            count = 0;
-            while (count < list.length && !valid) {
-                if (list[count] == selected) valid = true;
-                else count ++;
-            }
-            if (selected == null || !valid) {
-                System.out.println("Sorry, couldn't find that one. Please try again.");
-                continue;
-            }
-            break;
-        }
-        return new Player(name, true, list, selected);
     }
 }

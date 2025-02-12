@@ -1,4 +1,4 @@
-package PookiemonGame;
+package PookiemonGame.PlayerClasses;
 
 import PookiemonGame.PookiemonClasses.Pookiemon;
 
@@ -10,6 +10,7 @@ public class Player {
     private boolean human;
     private ArrayList<Pookiemon> Pookiemon;
     private Pookiemon selectedPookiemon;
+    private int wins;
 
     /**
      * Creates a new Player instance with given name and human status.
@@ -26,8 +27,8 @@ public class Player {
     /**
      * Creates a new Player instance with given name, human status, and starting Pookiemon.
      *
-     * @param name    Name of the Player.
-     * @param human   Human status of the Player.
+     * @param name      Name of the Player.
+     * @param human     Human status of the Player.
      * @param Pookiemon Starting Pookiemon for the Player.
      */
     public Player(String name, boolean human, Pookiemon[] Pookiemon) {
@@ -40,8 +41,8 @@ public class Player {
     /**
      * Creates a new player instance with given name, human status, starting Pookiemon, and starting selected Pookiemon.
      *
-     * @param name            Name of the Player.
-     * @param human           Human status of the Player.
+     * @param name              Name of the Player.
+     * @param human             Human status of the Player.
      * @param Pookiemon         Starting Pookiemon for the Player.
      * @param selectedPookiemon Starting selected Pookiemon for the Player.
      */
@@ -136,5 +137,30 @@ public class Player {
     public void selectPookiemon(int index) {
         if (index < 0 || index > Pookiemon.size()) return;
         this.selectedPookiemon = this.Pookiemon.get(index);
+    }
+
+    /**
+     * Get the wins that this Player has gotten.
+     *
+     * @return The wins that this Player has gotten.
+     */
+    public int getWins() {
+        return wins;
+    }
+
+    /**
+     * Set the wins that this Player has gotten.
+     *
+     * @param wins The wins that this Player has gotten.
+     */
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    /**
+     * Add a win to this Player.
+     */
+    public void addWin() {
+        this.wins++;
     }
 }

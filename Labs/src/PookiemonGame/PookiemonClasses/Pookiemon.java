@@ -10,11 +10,11 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance. Passes type and name to super constructor.
      *
-     * @param type Type of the Pookiemon. Passed to super constructor.
+     * @param types Types of the Pookiemon. Passed to super constructor.
      * @param name Name of the Pookiemon. Passed to super constructor.
      */
-    public Pookiemon(Types type, String name) {
-        super(type, name);
+    public Pookiemon(Types[] types, String name) {
+        super(types, name);
         this.critChance = 0;
         this.speed = 1;
     }
@@ -22,12 +22,12 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type and name to super constructor.
      *
-     * @param type  Type of the Pookiemon. Passed to super constructor.
+     * @param types  Types of the Pookiemon. Passed to super constructor.
      * @param name  Name of the Pookiemon. Passed to super constructor.
      * @param speed Speed of the Pookiemon.
      */
-    public Pookiemon(Types type, String name, int speed) {
-        super(type, name);
+    public Pookiemon(Types[] types, String name, int speed) {
+        super(types, name);
         this.critChance = speed / 2.0;
         this.speed = speed;
     }
@@ -35,13 +35,13 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type and name to super constructor.
      *
-     * @param type       Type of the Pookiemon. Passed to super constructor.
+     * @param types       Types of the Pookiemon. Passed to super constructor.
      * @param name       Name of the Pookiemon. Passed to super constructor.
      * @param critChance CritChance of the Pookiemon.
      * @param speed      Speed of the Pookiemon.
      */
-    public Pookiemon(Types type, String name, double critChance, int speed) {
-        super(type, name);
+    public Pookiemon(Types[] types, String name, double critChance, int speed) {
+        super(types, name);
         this.critChance = critChance;
         this.speed = speed;
     }
@@ -49,44 +49,28 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, name, and health to super constructor.
      *
-     * @param type   Type of the Pookiemon. Passed to super constructor.
+     * @param types   Types of the Pookiemon. Passed to super constructor.
      * @param name   Name of the Pookiemon. Passed to super constructor.
      * @param speed  Speed of the Pookiemon.
      * @param health Health of the Pookiemon. Passed to super constructor.
      */
-    public Pookiemon(Types type, String name, int speed, int health) {
-        super(type, name, health);
+    public Pookiemon(Types[] types, String name, int speed, int health) {
+        super(types, name, health);
         this.critChance = speed / 2.0;
-        this.speed = speed;
-    }
-
-    /**
-     * Creates a new Pookiemon instance with given critChance. Passes type, name, health, attack, defense, and evolution to super constructor.
-     *
-     * @param type      Type of the Pookiemon. Passed to super constructor.
-     * @param name      Name of the Pookiemon. Passed to super constructor.
-     * @param speed     Speed of the Pookiemon.
-     * @param health    Health of the Pookiemon. Passed to super constructor.
-     * @param attack    Attack strength of the Pookiemon. Passed to super constructor.
-     * @param defense   Defense strength of the Pookiemon. Passed to super constructor.
-     * @param evolution Pookiemon to evolve to. Passed to super constructor.
-     */
-    public Pookiemon(Types type, String name, int speed, int health, int attack, int defense, Pookiemon evolution) {
-        super(type, new Move[]{}, name, health, attack, defense, evolution);
         this.speed = speed;
     }
 
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, name, and health to super constructor.
      *
-     * @param type       Type of the Pookiemon. Passed to super constructor.
+     * @param types       Types of the Pookiemon. Passed to super constructor.
      * @param name       Name of the Pookiemon. Passed to super constructor.
      * @param critChance CritChance of the Pookiemon.
      * @param speed      Speed of the Pookiemon.
      * @param health     Health of the Pookiemon. Passed to super constructor.
      */
-    public Pookiemon(Types type, String name, double critChance, int speed, int health) {
-        super(type, name, health);
+    public Pookiemon(Types[] types, String name, double critChance, int speed, int health) {
+        super(types, name, health);
         this.critChance = critChance;
         this.speed = speed;
     }
@@ -94,15 +78,15 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, name, health, attack, and defense to super constructor.
      *
-     * @param type    Type of the Pookiemon. Passed to super constructor.
+     * @param types    Types of the Pookiemon. Passed to super constructor.
      * @param name    Name of the Pookiemon. Passed to super constructor.
      * @param speed   Speed of the Pookiemon.
      * @param health  Health of the Pookiemon. Passed to super constructor.
      * @param attack  Attack strength of the Pookiemon. Passed to super constructor.
      * @param defense Defense strength of the Pookiemon. Passed to super constructor.
      */
-    public Pookiemon(Types type, String name, int speed, int health, int attack, int defense) {
-        super(type, name, health, attack, defense);
+    public Pookiemon(Types[] types, String name, int speed, int health, int attack, int defense) {
+        super(types, name, health, attack, defense);
         this.critChance = speed / 2.0;
         this.speed = speed;
     }
@@ -110,8 +94,7 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, moves, name, health, attack, defense, and evolution to super constructor.
      *
-     * @param type      Type of the Pookiemon. Passed to super constructor.
-     * @param moves     Moves that the Pookiemon has. Passed to super constructor.
+     * @param types      Types of the Pookiemon. Passed to super constructor.
      * @param name      Name of the Pookiemon. Passed to super constructor.
      * @param speed     Speed of the Pookiemon.
      * @param health    Health of the Pookiemon. Passed to super constructor.
@@ -119,15 +102,15 @@ public class Pookiemon extends PookiemonType {
      * @param defense   Defense strength of the Pookiemon. Passed to super constructor.
      * @param evolution Pookiemon to evolve to. Passed to super constructor.
      */
-    public Pookiemon(Types type, Move[] moves, String name, int speed, int health, int attack, int defense, Pookiemon evolution) {
-        super(type, moves, name, health, attack, defense, evolution);
+    public Pookiemon(Types[] types, String name, int speed, int health, int attack, int defense, Pookiemon evolution) {
+        super(types, name, health, attack, defense, evolution);
         this.speed = speed;
     }
 
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, name, health, attack, and defense to super constructor.
      *
-     * @param type       Type of the Pookiemon. Passed to super constructor.
+     * @param types       Types of the Pookiemon. Passed to super constructor.
      * @param name       Name of the Pookiemon. Passed to super constructor.
      * @param critChance CritChance of the Pookiemon.
      * @param speed      Speed of the Pookiemon.
@@ -135,8 +118,8 @@ public class Pookiemon extends PookiemonType {
      * @param attack     Attack strength of the Pookiemon. Passed to super constructor.
      * @param defense    Defense strength of the Pookiemon. Passed to super constructor.
      */
-    public Pookiemon(Types type, String name, double critChance, int speed, int health, int attack, int defense) {
-        super(type, name, health, attack, defense);
+    public Pookiemon(Types[] types, String name, double critChance, int speed, int health, int attack, int defense) {
+        super(types, name, health, attack, defense);
         this.critChance = critChance;
         this.speed = speed;
     }

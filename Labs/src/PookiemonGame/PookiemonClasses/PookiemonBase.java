@@ -7,6 +7,7 @@ public class PookiemonBase {
     private int defense;
     private int battleDamage;
     private Pookiemon evolution;
+    private int wins = 0;
 
     /**
      * Creates a new PookiemonBase instance with given name and default health, attack, and defense.
@@ -221,6 +222,31 @@ public class PookiemonBase {
         this.attack = evolution.getAttack();
         this.defense = evolution.getDefense();
         this.evolution = evolution.getEvolution();
+    }
+
+    /**
+     * Get the wins that this PookiemonBase has gotten.
+     *
+     * @return The wins that this PookiemonBase has gotten.
+     */
+    public int getWins() {
+        return wins;
+    }
+
+    /**
+     * Set the wins that this PookiemonBase has gotten.
+     *
+     * @param wins The wins that this PookiemonBase has gotten.
+     */
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    /**
+     * Add a win to this PookiemonBase.
+     */
+    public void addWin() {
+        this.wins++;
     }
 
     /**
