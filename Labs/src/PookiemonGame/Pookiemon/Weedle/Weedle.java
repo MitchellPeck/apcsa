@@ -1,12 +1,13 @@
 package PookiemonGame.Pookiemon.Weedle;
 
 import PookiemonGame.PookiemonClasses.Pookiemon;
+import PookiemonGame.PookiemonClasses.Types;
 
 import static PookiemonGame.PookiemonClasses.Types.*;
 
 public class Weedle extends Pookiemon {
     public Weedle() {
-        super(FIRE, "Weedle", 50, 40, 35, 30, new Kakuna());
+        super(new Types[]{BUG, POISON}, "Weedle", 50, 40, 35, 30, new Kakuna());
 
         super.setDisadvantage(FLYING, 2);
         super.setDisadvantage(ROCK, 2);

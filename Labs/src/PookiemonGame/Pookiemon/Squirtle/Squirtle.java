@@ -1,12 +1,13 @@
 package PookiemonGame.Pookiemon.Squirtle;
 
 import PookiemonGame.PookiemonClasses.Pookiemon;
+import PookiemonGame.PookiemonClasses.Types;
 
 import static PookiemonGame.PookiemonClasses.Types.*;
 
 public class Squirtle extends Pookiemon {
     public Squirtle() {
-        super(FIRE, "Squirtle", 43, 44, 48, 65, new Wartortle());
+        super(new Types[]{WATER}, "Squirtle", 43, 44, 48, 65, new Wartortle());
 
         super.setDisadvantage(GRASS, 2);
         super.setDisadvantage(ELECTRIC, 2);

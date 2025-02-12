@@ -1,12 +1,13 @@
 package PookiemonGame.Pookiemon.Squirtle;
 
 import PookiemonGame.PookiemonClasses.Pookiemon;
+import PookiemonGame.PookiemonClasses.Types;
 
 import static PookiemonGame.PookiemonClasses.Types.*;
 
 public class Blastoise extends Pookiemon {
     public Blastoise() {
-        super(FIRE, "Blastoise", 78, 79, 83, 100);
+        super(new Types[]{WATER}, "Blastoise", 78, 79, 83, 100);
 
         super.setDisadvantage(GRASS, 2);
         super.setDisadvantage(ELECTRIC, 2);

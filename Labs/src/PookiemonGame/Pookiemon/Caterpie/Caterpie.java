@@ -1,12 +1,13 @@
 package PookiemonGame.Pookiemon.Caterpie;
 
 import PookiemonGame.PookiemonClasses.Pookiemon;
+import PookiemonGame.PookiemonClasses.Types;
 
 import static PookiemonGame.PookiemonClasses.Types.*;
 
 public class Caterpie extends Pookiemon {
     public Caterpie() {
-        super(FIRE, "Caterpie", 45, 45, 30, 35, new Metapod());
+        super(new Types[]{BUG}, "Caterpie", 45, 45, 30, 35, new Metapod());
 
         super.setDisadvantage(FLYING, 2);
         super.setDisadvantage(ROCK, 2);

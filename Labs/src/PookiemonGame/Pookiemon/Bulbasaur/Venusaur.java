@@ -1,12 +1,13 @@
 package PookiemonGame.Pookiemon.Bulbasaur;
 
 import PookiemonGame.PookiemonClasses.Pookiemon;
+import PookiemonGame.PookiemonClasses.Types;
 
 import static PookiemonGame.PookiemonClasses.Types.*;
 
 public class Venusaur extends Pookiemon {
     public Venusaur() {
-        super(GRASS, "Venusaur", 80, 80, 82, 83);
+        super(new Types[]{GRASS, POISON}, "Venusaur", 80, 80, 82, 83);
 
         super.setDisadvantage(FLYING, 2);
         super.setDisadvantage(FIRE, 2);

@@ -2,11 +2,13 @@ package PookiemonGame.Pookiemon.Bulbasaur;
 
 import PookiemonGame.PookiemonClasses.Move;
 import PookiemonGame.PookiemonClasses.Pookiemon;
+import PookiemonGame.PookiemonClasses.Types;
+
 import static PookiemonGame.PookiemonClasses.Types.*;
 
 public class Bulbasaur extends Pookiemon {
     public Bulbasaur() {
-        super(GRASS, "Bulbasaur", 45, 45, 49, 49, new Ivysaur());
+        super(new Types[]{GRASS, POISON}, "Bulbasaur", 45, 45, 49, 49, new Ivysaur());
 
         super.setDisadvantage(FLYING, 2);
         super.setDisadvantage(FIRE, 2);

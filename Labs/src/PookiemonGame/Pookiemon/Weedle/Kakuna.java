@@ -1,12 +1,13 @@
 package PookiemonGame.Pookiemon.Weedle;
 
 import PookiemonGame.PookiemonClasses.Pookiemon;
+import PookiemonGame.PookiemonClasses.Types;
 
 import static PookiemonGame.PookiemonClasses.Types.*;
 
 public class Kakuna extends Pookiemon {
     public Kakuna() {
-        super(FIRE, "Kakuna", 35, 45, 25, 50, new Beedrill());
+        super(new Types[]{BUG, POISON}, "Kakuna", 35, 45, 25, 50, new Beedrill());
 
         super.setDisadvantage(FLYING, 2);
         super.setDisadvantage(ROCK, 2);

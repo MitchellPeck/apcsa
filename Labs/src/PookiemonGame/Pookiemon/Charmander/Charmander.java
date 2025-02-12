@@ -1,12 +1,13 @@
 package PookiemonGame.Pookiemon.Charmander;
 
 import PookiemonGame.PookiemonClasses.Pookiemon;
+import PookiemonGame.PookiemonClasses.Types;
 
 import static PookiemonGame.PookiemonClasses.Types.*;
 
 public class Charmander extends Pookiemon {
     public Charmander() {
-        super(FIRE, "Charmander", 65, 39, 52, 43, new Charmeleon());
+        super(new Types[]{FIRE}, "Charmander", 65, 39, 52, 43, new Charmeleon());
 
         super.setDisadvantage(GROUND, 2);
         super.setDisadvantage(ROCK, 2);

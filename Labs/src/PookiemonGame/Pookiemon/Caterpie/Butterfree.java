@@ -1,12 +1,13 @@
 package PookiemonGame.Pookiemon.Caterpie;
 
 import PookiemonGame.PookiemonClasses.Pookiemon;
+import PookiemonGame.PookiemonClasses.Types;
 
 import static PookiemonGame.PookiemonClasses.Types.*;
 
 public class Butterfree extends Pookiemon {
     public Butterfree() {
-        super(FIRE, "Butterfree", 70, 60, 45, 50);
+        super(new Types[]{BUG, FLYING}, "Butterfree", 70, 60, 45, 50);
 
         super.setDisadvantage(FLYING, 2);
         super.setDisadvantage(ROCK, 4);
