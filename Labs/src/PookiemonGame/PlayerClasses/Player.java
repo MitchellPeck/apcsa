@@ -97,7 +97,7 @@ public class Player {
      */
     public Pookiemon[] getPookiemon() {
         Pookiemon[] arr = new Pookiemon[pookiemon.size()];
-        for (int i=0; i<pookiemon.size(); i++) {
+        for (int i = 0; i < pookiemon.size(); i++) {
             arr[i] = pookiemon.get(i);
         }
         return arr;
@@ -144,7 +144,13 @@ public class Player {
     }
 
     public void selectPookiemon(Pookiemon pookiemon) {
-        if (this.pookiemon.contains(pookiemon)) this.selectedPookiemon = pookiemon;
+        boolean valid = false;
+        for (Pookiemon p : this.pookiemon) {
+            if (p.getName().equals(pookiemon.getName())) valid = true;
+        }
+        if (valid) {
+            this.selectedPookiemon = pookiemon;
+        }
     }
 
     /**

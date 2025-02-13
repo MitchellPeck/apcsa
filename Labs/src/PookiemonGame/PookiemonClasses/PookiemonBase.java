@@ -204,8 +204,6 @@ public class PookiemonBase {
         }
         if (health <= 0) {
             System.out.println(name + " is down!");
-        } else {
-            printHealth();
         }
         return health;
     }
@@ -220,10 +218,18 @@ public class PookiemonBase {
     public int heal() {
         int safeHeal = Math.min(battleDamage, 20);
         health += safeHeal;
-        battleDamage = 0;
+        resetBattleDamage();
         System.out.println(name + " has healed " + safeHeal + " points.");
         printHealth();
         return safeHeal;
+    }
+
+    /**
+     * Returns if healing is possible.
+     * @return If healing is possible.
+     */
+    public boolean canHeal() {
+        return battleDamage > 0;
     }
 
     /**

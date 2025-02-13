@@ -145,6 +145,16 @@ public class Utils {
         return list;
     }
 
+    public static Pookiemon randomPookiemonFromList(Pookiemon[] list) {
+        int i = Random.number(0, list.length);
+        return list[i];
+    }
+
+    public static Move randomMoveFromList(Move[] list) {
+        int i = Random.number(0, list.length);
+        return list[i];
+    }
+
     public static Pookiemon randomPookiemon(Pookiemon[] list) {
         int n = (int) (Math.random() * list.length);
         return list[n];

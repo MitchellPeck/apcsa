@@ -144,7 +144,7 @@ public class PookiemonType extends PookiemonBase {
      */
     public double advantage(PookiemonType enemy) {
         Types enemyType = enemy.getTypes()[0];
-        double advantage = advantages.get(enemyType);
+        double advantage = advantages.getOrDefault(enemyType, 0.0);
         if (advantage == 0) advantage = 1;
         return advantage;
     }

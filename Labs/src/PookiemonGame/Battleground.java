@@ -19,7 +19,8 @@ public class Battleground {
     Scanner i = new Scanner(System.in);
     PookiemonList pList = new PookiemonList();
 
-    public Battleground() {}
+    public Battleground() {
+    }
 
     private void setPlayer(int index) {
         player = playersList.getPlayer(index);
@@ -67,6 +68,56 @@ public class Battleground {
         System.out.println("Let's play!");
 
         while (playersList.winningPlayer() == null) {
+            if (player.getName().equals("Computer")) {
+                while (player.getSelectedPookiemon().getHealth() <= 0) {
+                    Pookiemon newPookiemon = Utils.randomPookiemonFromList(player.getPookiemon());
+                    player.selectPookiemon(newPookiemon);
+                }
+                boolean swap = Utils.Random.number(1, 10) < 2;
+                if (swap) {
+                    Pookiemon newPookiemon = Utils.randomPookiemonFromList(player.getPookiemon());
+                    player.selectPookiemon(newPookiemon);
+                }
+
+                Types moveType = player.getSelectedPookiemon().getTypes()[0];
+                MovesList mList = new MovesList();
+
+                int availableCount = 0;
+                for (int i = 0; i < mList.getList().size(); i++) {
+                    Move move = mList.getList().get(i);
+                    if (move.getType() == moveType || move.getType() == NORMAL) {
+                        availableCount++;
+                    }
+                }
+
+                Move[] availableMoves = new Move[availableCount];
+
+                int current = 0;
+                for (int i = 0; i < mList.getList().size(); i++) {
+                    Move move = mList.getList().get(i);
+                    if (move.getType() == moveType || move.getType() == NORMAL) {
+                        availableMoves[current] = move;
+                        current++;
+                    }
+                }
+
+                Move move = Utils.randomMoveFromList(availableMoves);
+
+                Pookiemon enemy = getOpponent().getSelectedPookiemon();
+                int damage = player.getSelectedPookiemon().attack(enemy, move);
+                int remainingHealth = enemy.damage(damage);
+                System.out.println("Woah! Computer scored " + damage + " against your " + enemy.getName());
+                enemy.printHealth();
+                if (remainingHealth <= 0) {
+                    player.getSelectedPookiemon().addWin();
+                }
+                int random = Utils.Random.number(3, 4);
+                if (player.getSelectedPookiemon().getWins() >= random) {
+                    player.getSelectedPookiemon().evolve();
+                }
+                nextPlayer();
+                continue;
+            }
             System.out.println(player.getName() + ", it's your turn!");
 
             System.out.println("Here's your current Pookiemon:");
@@ -76,12 +127,17 @@ public class Battleground {
             System.out.println("Here's your opponent's Pookiemon:");
             System.out.println(getOpponent().getSelectedPookiemon());
 
-            if (player.getSelectedPookiemon().getHealth() <= 0) {
+            if (player.getSelectedPookiemon().getHealth() <= 0 && player.getSelectedPookiemon().canHeal()) {
+                System.out.println("Oops, your Pookiemon is dead.");
+                System.out.println("You can choose to heal your Pookiemon now, restoring up to 20 points.");
+                String r = Utils.getValidEntry("Would you like to? Yes/No", 3, i);
+                if (r.equals("Yes")) {
+                    player.getSelectedPookiemon().heal();
+                    System.out.println("Your Pookiemon is Healed!");
+                } else {
+                    System.out.println("You must choose a different Pookiemon...");
 
-            } else {
-                System.out.println();
-                String res = Utils.getValidEntry("Do you want to (C)ontinue using your selected Pookiemon or choose a (D)ifferent one from your deck?", 1, i, "C", "D");
-                while (res.equals("D")) {
+                    System.out.println();
                     System.out.println("Here's your Pookiemon:");
                     Pookiemon[] these = player.getPookiemon();
                     for (Pookiemon aThis : these) {
@@ -92,13 +148,47 @@ public class Battleground {
 
                     System.out.println("Here's your current Pookiemon:");
                     System.out.println(player.getSelectedPookiemon());
-
-                    System.out.println();
-                    res = Utils.getValidEntry("Do you want to (C)ontinue using your selected Pookiemon or choose a (D)ifferent one from your deck?", 1, i, "C", "D");
                 }
+            } else if (player.getSelectedPookiemon().getHealth() <= 0) {
+                System.out.println("You must choose a different Pookiemon...");
 
-                if (player.getSelectedPookiemon().getBattleDamage() >= 0) {
-                    System.out.println("Your Pookiemon can be healed! Would you like to heal it?");
+                System.out.println();
+                System.out.println("Here's your Pookiemon:");
+                Pookiemon[] these = player.getPookiemon();
+                for (Pookiemon aThis : these) {
+                    System.out.println(aThis);
+                }
+                Pookiemon choice = Utils.choosePookiemon(i, player.getPookiemon());
+                player.selectPookiemon(choice);
+
+                System.out.println("Here's your current Pookiemon:");
+                System.out.println(player.getSelectedPookiemon());
+            }
+
+            System.out.println();
+            String res = Utils.getValidEntry("Do you want to (C)ontinue using your selected Pookiemon or choose a (D)ifferent one from your deck?", 1, i, "C", "D");
+            while (res.equals("D")) {
+                System.out.println("Here's your Pookiemon:");
+                Pookiemon[] these = player.getPookiemon();
+                for (Pookiemon aThis : these) {
+                    System.out.println(aThis);
+                }
+                Pookiemon choice = Utils.choosePookiemon(i, player.getPookiemon());
+                player.selectPookiemon(choice);
+
+                System.out.println("Here's your current Pookiemon:");
+                System.out.println(player.getSelectedPookiemon());
+
+                System.out.println();
+                res = Utils.getValidEntry("Do you want to (C)ontinue using your selected Pookiemon or choose a (D)ifferent one from your deck?", 1, i, "C", "D");
+            }
+
+            if (player.getSelectedPookiemon().canHeal()) {
+                System.out.println("Your Pookiemon can be healed!");
+                String r = Utils.getValidEntry("Would you like to heal it? Yes/No", 3, i);
+                if (r.equals("Yes")) {
+                    player.getSelectedPookiemon().heal();
+                    System.out.println("Your Pookiemon is Healed!");
                 }
             }
 
@@ -163,6 +253,7 @@ public class Battleground {
             int damage = player.getSelectedPookiemon().attack(enemy, selectedMove);
             int remainingHealth = enemy.damage(damage);
             System.out.println("Woah! You scored " + damage + " against " + getOpponent().getName() + "'s " + enemy.getName());
+            enemy.printHealth();
             if (remainingHealth <= 0) {
                 player.getSelectedPookiemon().addWin();
             }
