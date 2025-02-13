@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Player {
     private String name;
     private boolean human;
-    private ArrayList<Pookiemon> Pookiemon;
+    private ArrayList<Pookiemon> pookiemon;
     private Pookiemon selectedPookiemon;
     private int wins;
 
@@ -21,7 +21,7 @@ public class Player {
     public Player(String name, boolean human) {
         this.name = name;
         this.human = human;
-        this.Pookiemon = new ArrayList<Pookiemon>(5);
+        this.pookiemon = new ArrayList<Pookiemon>(5);
     }
 
     /**
@@ -34,8 +34,8 @@ public class Player {
     public Player(String name, boolean human, Pookiemon[] Pookiemon) {
         this.name = name;
         this.human = human;
-        this.Pookiemon = new ArrayList<Pookiemon>(55);
-        this.Pookiemon.addAll(Arrays.asList(Pookiemon));
+        this.pookiemon = new ArrayList<Pookiemon>(55);
+        this.pookiemon.addAll(Arrays.asList(Pookiemon));
     }
 
     /**
@@ -49,8 +49,8 @@ public class Player {
     public Player(String name, boolean human, Pookiemon[] Pookiemon, Pookiemon selectedPookiemon) {
         this.name = name;
         this.human = human;
-        this.Pookiemon = new ArrayList<Pookiemon>(5);
-        this.Pookiemon.addAll(Arrays.asList(Pookiemon));
+        this.pookiemon = new ArrayList<Pookiemon>(5);
+        this.pookiemon.addAll(Arrays.asList(Pookiemon));
         this.selectedPookiemon = selectedPookiemon;
     }
 
@@ -96,7 +96,11 @@ public class Player {
      * @return Pookiemon for the Player.
      */
     public Pookiemon[] getPookiemon() {
-        return (Pookiemon[]) Pookiemon.toArray();
+        Pookiemon[] arr = new Pookiemon[pookiemon.size()];
+        for (int i=0; i<pookiemon.size(); i++) {
+            arr[i] = pookiemon.get(i);
+        }
+        return arr;
     }
 
     /**
@@ -106,8 +110,8 @@ public class Player {
      * @param Pookiemon Pookiemon to add to the Player.
      */
     public void addPookiemon(Pookiemon Pookiemon) {
-        if (this.Pookiemon.size() >= 5) return;
-        this.Pookiemon.add(Pookiemon);
+        if (this.pookiemon.size() >= 5) return;
+        this.pookiemon.add(Pookiemon);
     }
 
     /**
@@ -116,7 +120,7 @@ public class Player {
      * @param Pookiemon Pookiemon to remove from the player.
      */
     public void removePookiemon(Pookiemon Pookiemon) {
-        this.Pookiemon.remove(Pookiemon);
+        this.pookiemon.remove(Pookiemon);
     }
 
     /**
@@ -125,8 +129,8 @@ public class Player {
      * @param index Index of Pookiemon to remove from the Player.
      */
     public void removePookiemon(int index) {
-        if (index < 0 || index > Pookiemon.size()) return;
-        this.Pookiemon.remove(index);
+        if (index < 0 || index > pookiemon.size()) return;
+        this.pookiemon.remove(index);
     }
 
     /**
@@ -135,8 +139,21 @@ public class Player {
      * @param index Index of Pookiemon to set as selected for the Player.
      */
     public void selectPookiemon(int index) {
-        if (index < 0 || index > Pookiemon.size()) return;
-        this.selectedPookiemon = this.Pookiemon.get(index);
+        if (index < 0 || index > pookiemon.size()) return;
+        this.selectedPookiemon = this.pookiemon.get(index);
+    }
+
+    public void selectPookiemon(Pookiemon pookiemon) {
+        if (this.pookiemon.contains(pookiemon)) this.selectedPookiemon = pookiemon;
+    }
+
+    /**
+     * Get selected Pookiemon for the Player.
+     *
+     * @return Selected Pookiemon for the Player.
+     */
+    public Pookiemon getSelectedPookiemon() {
+        return selectedPookiemon;
     }
 
     /**

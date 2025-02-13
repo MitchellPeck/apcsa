@@ -1,14 +1,16 @@
 package PookiemonGame;
 
+import PookiemonGame.Moves.MovesList;
 import PookiemonGame.PlayerClasses.Player;
 import PookiemonGame.Pookiemon.PookiemonList;
+import PookiemonGame.PookiemonClasses.Move;
 import PookiemonGame.PookiemonClasses.Pookiemon;
 import PookiemonGame.PookiemonClasses.Types;
 
 import java.util.Scanner;
 
 public class Utils {
-    Random Random = new Random();
+    static Random Random = new Random();
 
     public static Pookiemon createPookiemon(Scanner i) {
         String name = getValidEntry("Please enter your Pookiemon's name:", 0, i);
@@ -41,13 +43,13 @@ public class Utils {
                 Pookiemon pookiemon = pList.findPookiemonByName(pookiemonName);
                 boolean exists = false;
                 int lCount = 0;
-                while (!exists && lCount < list.length) {
-                    if (pookiemon == list[lCount]) exists = true;
-                    else lCount++;
-                }
                 if (pookiemon == null) {
                     System.out.println("Sorry, couldn't find that one. Please try again.");
                     continue;
+                }
+                while (!exists && lCount < list.length) {
+                    if (pookiemon == list[lCount]) exists = true;
+                    else lCount++;
                 }
                 if (exists) {
                     System.out.println("You already added that one, please choose a different Pookiemon!");
@@ -66,22 +68,71 @@ public class Utils {
                 selected = pList.findPookiemonByName(selectedName);
                 boolean valid = false;
                 count = 0;
+                if (selected == null) {
+                    System.out.println("Sorry, couldn't find that one. Please try again.");
+                    continue;
+                }
                 while (count < list.length && !valid) {
                     if (list[count] == selected) valid = true;
                     else count++;
                 }
-                if (selected == null || !valid) {
+                if (!valid) {
                     System.out.println("Sorry, couldn't find that one. Please try again.");
                     continue;
                 }
                 break;
             }
-        }
-        else {
+        } else {
             list = randomList();
             selected = randomPookiemon(list);
         }
         return new Player(name, true, list, selected);
+    }
+
+    public static Pookiemon choosePookiemon(Scanner i, Pookiemon[] list) {
+        PookiemonList pList = new PookiemonList();
+        while (true) {
+            String selectedName = Utils.getValidEntry("Please enter the name of the Pookiemon that you'd like to start battle with.", 255, i);
+            Pookiemon selected = pList.findPookiemonByName(selectedName);
+            boolean valid = false;
+            int count = 0;
+            if (selected == null) {
+                System.out.println("Sorry, couldn't find that one. Please try again.");
+                continue;
+            }
+            while (count < list.length && !valid) {
+                if (list[count].getName().equals(selected.getName())) valid = true;
+                else count++;
+            }
+            if (!valid) {
+                System.out.println("Sorry, couldn't find that one. Please try again.");
+                continue;
+            }
+            return selected;
+        }
+    }
+
+    public static Move chooseMove(Scanner i, Move[] list) {
+        MovesList mList = new MovesList();
+        while (true) {
+            String selectedName = Utils.getValidEntry("Please enter the name of the Move that you'd like to use.", 255, i);
+            Move selected = mList.findMoveByName(selectedName);
+            boolean valid = false;
+            int count = 0;
+            if (selected == null) {
+                System.out.println("Sorry, couldn't find that one. Please try again.");
+                continue;
+            }
+            while (count < list.length && !valid) {
+                if (list[count].getName().equals(selected.getName())) valid = true;
+                else count++;
+            }
+            if (!valid) {
+                System.out.println("Sorry, couldn't find that one. Please try again.");
+                continue;
+            }
+            return selected;
+        }
     }
 
     public static Pookiemon[] randomList() {
@@ -173,10 +224,14 @@ public class Utils {
     }
 
 
-    public void clearScreen() {
+    public static void clearScreen() {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
+    }
+
+    public static String getChance(double input) {
+        return (int) (input) + "%";
     }
 
     public static class Random {

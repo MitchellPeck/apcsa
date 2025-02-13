@@ -171,7 +171,7 @@ public class PookiemonType extends PookiemonBase {
         if (accuracyChance <= accuracy && !enemy.isImmune(this)) {
             damage = (int) ((advantageDamage * damageMultiplier) + .5);
         }
-        return damage;
+        return Math.max(damage, 0);
     }
 
     /**
@@ -186,12 +186,12 @@ public class PookiemonType extends PookiemonBase {
     }
 
     /**
-     * Get the string representation of the Pookiemon and its type.
+     * Get the string representation of the PookiemonType and its type.
      *
-     * @return The string representation of the Pookiemon and its type.
+     * @return The string representation of the PookiemonType and its type.
      */
     @Override
     public String toString() {
-        return types + " " + super.toString();
+        return types[0] + " " + getName() + " with " + getHealth() + " health, " + getAttack() + " attack strength, and " + getDefense() + " defense strength.";
     }
 }

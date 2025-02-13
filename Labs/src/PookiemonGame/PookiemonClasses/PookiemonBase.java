@@ -139,6 +139,22 @@ public class PookiemonBase {
     }
 
     /**
+     * Get the battle damage of the PookiemonBase.
+     *
+     * @return The battle damage of the PookiemonBase.
+     */
+    public int getBattleDamage() {
+        return battleDamage;
+    }
+
+    /**
+     * Reset the battle damage of the PookiemonBase.
+     */
+    public void resetBattleDamage() {
+        battleDamage = 0;
+    }
+
+    /**
      * Get the evolution Pookiemon.
      *
      * @return The evolution Pookiemon.
@@ -167,7 +183,7 @@ public class PookiemonBase {
         int enemyDefense = enemy.getDefense();
         int attackDifference = attack - enemyDefense;
         int damage = (int) (Math.random() * attackDifference + 1);
-        return damage;
+        return Math.max(damage, 0);
     }
 
     /**
@@ -178,15 +194,20 @@ public class PookiemonBase {
      *
      * @param damage Damage to deal on this Pookiemon
      */
-    public void damage(int damage) {
-        int safeDamage = Math.max(damage, 0);
-        health -= safeDamage;
-        battleDamage = safeDamage;
+    public int damage(int damage) {
+        int prevHealth = health;
+        health = Math.max(health - damage, 0);
         if (health == 0) {
+            battleDamage = prevHealth;
+        } else {
+            battleDamage = damage;
+        }
+        if (health <= 0) {
             System.out.println(name + " is down!");
         } else {
             printHealth();
         }
+        return health;
     }
 
     /**
@@ -250,7 +271,7 @@ public class PookiemonBase {
     }
 
     /**
-     * Get the string representation of the Pookiemon including its health, attack strength, and defense strength.
+     * Get the string representation of the PookiemonBase including its health, attack strength, and defense strength.
      *
      * @return String representation of the PookiemonBase.
      */

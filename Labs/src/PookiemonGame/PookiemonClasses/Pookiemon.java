@@ -11,7 +11,7 @@ public class Pookiemon extends PookiemonType {
      * Creates a new Pookiemon instance. Passes type and name to super constructor.
      *
      * @param types Types of the Pookiemon. Passed to super constructor.
-     * @param name Name of the Pookiemon. Passed to super constructor.
+     * @param name  Name of the Pookiemon. Passed to super constructor.
      */
     public Pookiemon(Types[] types, String name) {
         super(types, name);
@@ -22,7 +22,7 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type and name to super constructor.
      *
-     * @param types  Types of the Pookiemon. Passed to super constructor.
+     * @param types Types of the Pookiemon. Passed to super constructor.
      * @param name  Name of the Pookiemon. Passed to super constructor.
      * @param speed Speed of the Pookiemon.
      */
@@ -35,7 +35,7 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type and name to super constructor.
      *
-     * @param types       Types of the Pookiemon. Passed to super constructor.
+     * @param types      Types of the Pookiemon. Passed to super constructor.
      * @param name       Name of the Pookiemon. Passed to super constructor.
      * @param critChance CritChance of the Pookiemon.
      * @param speed      Speed of the Pookiemon.
@@ -49,7 +49,7 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, name, and health to super constructor.
      *
-     * @param types   Types of the Pookiemon. Passed to super constructor.
+     * @param types  Types of the Pookiemon. Passed to super constructor.
      * @param name   Name of the Pookiemon. Passed to super constructor.
      * @param speed  Speed of the Pookiemon.
      * @param health Health of the Pookiemon. Passed to super constructor.
@@ -63,7 +63,7 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, name, and health to super constructor.
      *
-     * @param types       Types of the Pookiemon. Passed to super constructor.
+     * @param types      Types of the Pookiemon. Passed to super constructor.
      * @param name       Name of the Pookiemon. Passed to super constructor.
      * @param critChance CritChance of the Pookiemon.
      * @param speed      Speed of the Pookiemon.
@@ -78,7 +78,7 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, name, health, attack, and defense to super constructor.
      *
-     * @param types    Types of the Pookiemon. Passed to super constructor.
+     * @param types   Types of the Pookiemon. Passed to super constructor.
      * @param name    Name of the Pookiemon. Passed to super constructor.
      * @param speed   Speed of the Pookiemon.
      * @param health  Health of the Pookiemon. Passed to super constructor.
@@ -94,7 +94,7 @@ public class Pookiemon extends PookiemonType {
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, moves, name, health, attack, defense, and evolution to super constructor.
      *
-     * @param types      Types of the Pookiemon. Passed to super constructor.
+     * @param types     Types of the Pookiemon. Passed to super constructor.
      * @param name      Name of the Pookiemon. Passed to super constructor.
      * @param speed     Speed of the Pookiemon.
      * @param health    Health of the Pookiemon. Passed to super constructor.
@@ -105,12 +105,13 @@ public class Pookiemon extends PookiemonType {
     public Pookiemon(Types[] types, String name, int speed, int health, int attack, int defense, Pookiemon evolution) {
         super(types, name, health, attack, defense, evolution);
         this.speed = speed;
+        this.critChance = speed /2.0;
     }
 
     /**
      * Creates a new Pookiemon instance with given critChance. Passes type, name, health, attack, and defense to super constructor.
      *
-     * @param types       Types of the Pookiemon. Passed to super constructor.
+     * @param types      Types of the Pookiemon. Passed to super constructor.
      * @param name       Name of the Pookiemon. Passed to super constructor.
      * @param critChance CritChance of the Pookiemon.
      * @param speed      Speed of the Pookiemon.
@@ -172,8 +173,8 @@ public class Pookiemon extends PookiemonType {
         boolean crit = getCrit();
         int typeDamage = super.attack(enemy, move);
         if (crit && typeDamage > 0) typeDamage *= 2;
-        if (typeDamage > 0) System.out.println(getName() + " has scored a critical hit! Damage doubled!");
-        return (int) ((typeDamage * Globals.damageMultiplier) + .5);
+        if (crit && typeDamage > 0) System.out.println(getName() + " has scored a critical hit! Damage doubled!");
+        return Math.max((int) ((typeDamage * Globals.damageMultiplier) + .5), 0);
     }
 
     /**
@@ -182,7 +183,7 @@ public class Pookiemon extends PookiemonType {
      * @return Whether a critical hit is made.
      */
     private boolean getCrit() {
-        return Utils.Random.bool();
+        return Utils.Random.number(1, 100) < critChance;
     }
 
     /**
@@ -193,5 +194,15 @@ public class Pookiemon extends PookiemonType {
         if (getEvolution() == null) return;
         this.critChance = getEvolution().getCritChance();
         this.speed = getEvolution().getSpeed();
+    }
+
+    /**
+     * Get the string representation of the Pookiemon and its health and critChance.
+     *
+     * @return The string representation of the Pookiemon and its health and critChance.
+     */
+    @Override
+    public String toString() {
+        return getTypes()[0] + " " + getName() + " with " + getHealth() + " health, " + getAttack() + " attack strength, and " + getDefense() + " defense strength. \n Speed is " + speed + " and the chance of making a critical hit against an opponent is " + Utils.getChance(critChance);
     }
 }

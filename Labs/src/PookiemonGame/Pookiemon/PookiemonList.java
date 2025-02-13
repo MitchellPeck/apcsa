@@ -66,7 +66,7 @@ public class PookiemonList {
 
     public void listPookiemon() {
         for (Pookiemon pookiemon : list) {
-            System.out.println(pookiemon.getName());
+            System.out.println(pookiemon);
         }
     }
 

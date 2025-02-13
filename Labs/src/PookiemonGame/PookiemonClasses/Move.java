@@ -1,5 +1,7 @@
 package PookiemonGame.PookiemonClasses;
 
+import PookiemonGame.Utils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -59,5 +61,10 @@ public class Move {
 
     public void setType(Types type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return type + " " + name + " with a damage multiplier of " + Utils.getChance(damageMultiplier * 100) + " and an accuracy of " + Utils.getChance(accuracy * 100);
     }
 }
