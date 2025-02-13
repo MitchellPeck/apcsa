@@ -26,14 +26,13 @@ public class Battleground {
     }
 
     private void nextPlayer() {
-        if (playersList.getSize() < 2) return;
         if (player == playersList.getList().getLast()) player = playersList.getList().getFirst();
         else player = playersList.getPlayer(playersList.getList().indexOf(player) + 1);
     }
 
     private Player getOpponent() {
-        if (player.getName().equals(players.getLast().getName())) return players.getFirst();
-        else return players.get(players.indexOf(player) + 1);
+        if (player == playersList.getList().getLast()) return playersList.getList().getFirst();
+        else return playersList.getPlayer(playersList.getList().indexOf(player) + 1);
     }
 
     public void play() {
@@ -52,6 +51,7 @@ public class Battleground {
             Player player2 = new Player("Computer", false, list, Utils.randomPookiemon(list));
             playerList[1] = player2;
         } else {
+            playerList = new Player[response];
             for (int i = 0; i < response; i++) {
                 System.out.println("Player " + (i + 1) + ", let's create your player.");
                 Player player = Utils.createPlayer(this.i);
